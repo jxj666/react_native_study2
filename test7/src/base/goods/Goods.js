@@ -60,14 +60,18 @@ const recommendCss = StyleSheet.create({
 	marginLeft: 2.5,
 	width: deviceWidth / 2 - 7.5,
 	paddingBottom: 10,
-	backgroundColor: '#fff'
+	backgroundColor: '#fff',
+	overflow: 'hidden',
   },
   imgWrapper: {
 	alignItems: 'center'
   },
   img: {
-	width: 100,
-	height: 100
+	width: "100%",
+	height: 100,
+
+	borderWidth: 1,
+	borderColor: '#fff',
   },
   goodsInfo: {
 	paddingLeft: 10,
@@ -214,10 +218,12 @@ let currentStyle;
 class Goods extends React.Component {
 
   _currentStyle;
+  goodsInfo;
 
   constructor(props) {
 	super(props);
-	this._currentStyle = props.goodsStyle;
+	this._currentStyle = props.goodsStyle || 'normal';
+	this.goodsInfo=props.goods || '默认商品';
 	switch (this._currentStyle) {
 	  case 'normal' :
 		currentStyle = normalCss;
@@ -256,15 +262,15 @@ class Goods extends React.Component {
 		<View style={ currentStyle.container }>
 		  <TouchableOpacity onPress={ () => this.props.navigation.navigate('GoodsDetail') }
 							style={ currentStyle.imgWrapper }>
-			<Image style={ currentStyle.img } source={ require('./goods.jpg') }/>
+			<Image style={ currentStyle.img } source={ require('./goods.jpg') } resizeMode={'contain'}/>
 		  </TouchableOpacity>
 		  <View style={ currentStyle.goodsInfo }>
 			<Text style={ currentStyle.brandName } numberOfLines={ 1 }>
 			  <Text style={ currentStyle.brand }>
-				商品类:
+				商品类: 
 			  </Text>
 			  <Text style={ currentStyle.name }>
-				商品名
+				{this.goodsInfo}
 			  </Text>
 			</Text>
 			<Text style={ currentStyle.unit }>

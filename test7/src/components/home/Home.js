@@ -8,6 +8,7 @@ const Goods = require('../../base/goods/Goods');
 const Variable = require('../../common/css/variable');
 const Swiper = require('react-native-swiper');
 const deviceWidth = Dimensions.get('window').width;
+const deviceHeight = Dimensions.get('window').height;
 
 const CSS = StyleSheet.create({
   homeContainer: {
@@ -97,12 +98,12 @@ class Home extends React.Component {
   };
 
   _renderItem = ({item}) => {
-	const goodsList = [
-	  { title: 'Title Text', key: 'item1' },
-	  { title: 'Title Text', key: 'item2' },
-	  { title: 'Title Text', key: 'item3' },
-	  { title: 'Title Text', key: 'item4' },
-	  { title: 'Title Text', key: 'item5' }
+	const childGoodsList = [
+	  { title: '商品1', key: 'item1' },
+	  { title: '商品2', key: 'item2' },
+	  { title: '商品3', key: 'item3' },
+	  { title: '商品4', key: 'item4' },
+	  { title: '商品5', key: 'item5' }
 	];
 
 	return (
@@ -113,7 +114,7 @@ class Home extends React.Component {
 		  <FlatList
 			  showsHorizontalScrollIndicator={ false }
 			  horizontal={ true }
-			  data={ goodsList }
+			  data={ childGoodsList }
 			  renderItem={ this.renderGoods }
 			  keyExtractor={ this._keyGoodsExtractor }
 		  />
@@ -125,9 +126,9 @@ class Home extends React.Component {
 	return item.key;
   };
 
-  renderGoods = () => {
+  renderGoods = ({item}) => {
 	return (
-		<Goods navigation={ this.props.navigation } goodsStyle={ 'normal' }/>
+		<Goods navigation={ this.props.navigation } goods={item.title} goodsStyle={ 'normal' }/>
 	);
   };
 
@@ -144,7 +145,7 @@ class Home extends React.Component {
 
 
 
-// Swiper
+// Swiper 轮播图
 class SwiperAds extends React.Component {
   render() {
 	return (
@@ -175,21 +176,41 @@ class SwiperAds extends React.Component {
 // recommend
 class Recommend extends React.Component {
   render() {
+  	const List = [
+	  { title: '优惠活动', key: 'item1' },
+	  { title: '今日推荐', key: 'item2' },
+	  { title: '热点商品', key: 'item3' },
+	  { title: '优惠活动', key: 'item11' },
+	  { title: '今日推荐', key: 'item12' },
+	  { title: '热点商品', key: 'item13' },
+	  { title: '优惠活动', key: 'item21' },
+	  { title: '今日推荐', key: 'item22' },
+	  { title: '热点商品', key: 'item23' },
+	  { title: '优惠活动', key: 'item41' },
+	  { title: '今日推荐', key: 'item42' },
+	  { title: '热点商品', key: 'item43' },
+	];
+	const numColumns=2;
 	return (
 		<View>
 		  <Text style={CSS.totalGoodsTitle}>
-		    - - - 个性推荐 - - -
+		    - - - 全部商品 - - -
 		  </Text>
 		  <View style={ CSS.recommendContainer }>
-			<Goods navigation={ this.props.navigation } goodsStyle={ 'recommend' }/>
-			<Goods navigation={ this.props.navigation } goodsStyle={ 'recommend' }/>
-			<Goods navigation={ this.props.navigation } goodsStyle={ 'recommend' }/>
-			<Goods navigation={ this.props.navigation } goodsStyle={ 'recommend' }/>
-			<Goods navigation={ this.props.navigation } goodsStyle={ 'recommend' }/>
-			<Goods navigation={ this.props.navigation } goodsStyle={ 'recommend' }/>
+		  	<FlatList
+		  	data={List}
+		  	renderItem={this.renderTotal}
+		  	horizontal={false}
+		  	numColumns={numColumns}
+		  	></FlatList>
 		  </View>
 		</View>
 	);
+  }
+  renderTotal= () => {
+  	return(
+  		<Goods navigation={ this.props.navigation } goodsStyle={ 'recommend' }/>
+  		);
   }
 }
 

@@ -6,7 +6,9 @@ import {
   StyleSheet,
   DeviceEventEmitter,
   TouchableOpacity,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  TextInput,
+  Button
 } from 'react-native';
 import { getUserInfo } from '../../common/js/cache';
 import Header from '../header/header';
@@ -15,9 +17,7 @@ const deviceWidth = Dimensions.get('window').width;
 
 const CSS = StyleSheet.create({
   avatarWrapper: {
-	position: 'absolute',
-	top: 50,
-	left: deviceWidth / 2 - 35,
+  	marginTop:30,
 	zIndex: 100,
 	alignItems: 'center'
   },
@@ -99,11 +99,59 @@ const CSS = StyleSheet.create({
 	lineHeight:30,
 	color:'#13227a',
 	marginBottom: 20,
-  }, userInfoText:{
+  }, 
+  userInfoText:{
   	fontSize:16,
 	height:25,
 	lineHeight:25,
 	color:'#13227a',
+  },
+  button:{
+  	width:deviceWidth/2,
+  	height:40,
+  	flex: 1,
+    justifyContent: 'center',
+  	marginTop:100,
+  },
+  buttonView:{
+  	height:40,
+  	width:'100%',
+  	borderWidth: 1,
+  	borderColor: '#eee',
+  	borderStyle: 'solid',
+  	borderRadius:20,
+  	backgroundColor:'#13227a',
+  	overflow: 'hidden',
+  	padding:0,
+  }, 
+  buttonText:{
+  	textAlign:'center',
+  	lineHeight:35,
+  	fontSize: 20,
+  	color:'#fff',
+
+  },
+  buttonInput:{
+  	width:deviceWidth/1.5,
+  	height:40,
+  	marginTop: 20,
+  	marginBottom: 10,
+  	backgroundColor:'#fff',
+  	borderWidth: 1,
+  	borderColor: '#eee',
+  	borderStyle: 'solid',
+  	borderRadius:20,
+  	paddingRight: 20,
+  	paddingLeft: 20,
+  },
+  loginTitle:{
+
+  },
+  loginTitleText:{
+  	fontSize:20,
+  	color:'#13227a',
+  	marginTop:50,
+  	marginBottom:80,
   }
 });
 
@@ -164,16 +212,62 @@ class Personal extends React.Component {
 
 
   renderLoginEle = () => {
-	if (1) {
+  	const placeholderInfo={
+  		user:'请输入用户名!',
+  		password:'请输入密码!',
+  	}
+	if (Math.random()>0.5) {
 	  return (
 		  <View style={ CSS.avatarWrapper }>
 			<Image source={ { uri: `https://jxj322991.github.io/2018imgs/img/png/01.png` } } style={ CSS.avatar }/>
 			<Text style={CSS.userText}>异阳</Text>
 			<Text style={CSS.userInfoText}>男</Text>
 			<Text style={CSS.userInfoText}>超级会员</Text>
+			<TouchableOpacity style={CSS.button} onPress={this.onPress}>
+			<View style={CSS.buttonView}>
+			<Text style={CSS.buttonText}>
+			  退出登录
+			</Text>
+			  
+			</View>
+			</TouchableOpacity>
 		  </View>
 	  );
-	} 
+	} else{
+		return (
+	<View style={ CSS.avatarWrapper }>
+		<View style={CSS.loginTitle}>
+		<Text style={CSS.loginTitleText}>
+		  欢迎光临!
+		</Text>
+		</View>
+      	<TextInput 
+      	placeholder={placeholderInfo.user}
+      	style={CSS.buttonInput}
+        editable = {true}
+        maxLength = {20}
+      	/>
+      	<TextInput 
+      	secureTextEntry={true}
+      	placeholder={placeholderInfo.password}
+      	style={CSS.buttonInput}
+        editable = {true}
+        maxLength = {20}
+      	/>
+		<TouchableOpacity style={CSS.button} onPress={this.onPress}>
+		<View style={CSS.buttonView}>
+		  <Text style={CSS.buttonText}>
+		    登录
+		  </Text>
+		</View>
+		</TouchableOpacity>
+	</View>
+
+			);
+	}
+  }
+  onPress = () => {
+
   }
 }
 
