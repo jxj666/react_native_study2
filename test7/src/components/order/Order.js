@@ -26,7 +26,8 @@ const CSS = StyleSheet.create({
   store: {
 	alignSelf: 'center',
 	fontSize: 13,
-	fontWeight: '400'
+	fontWeight: '400',
+	color:'#13227a',
   },
   orderStatus: {
 	alignSelf: 'center',
@@ -42,7 +43,7 @@ const CSS = StyleSheet.create({
   },
   createDate: {
 	alignSelf: 'center',
-	color: '#ff8017',
+	color: '#13227a',
 	fontSize: 12
   },
   totalWrapper: {
