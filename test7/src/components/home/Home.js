@@ -70,19 +70,31 @@ const CSS = StyleSheet.create({
 
 // Home
 class Home extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      goodsList: [],
+      goodsList1: [],
+      goodsList2: [],
+      goodsList3: [],
+    }
+  }
+  componentWillMount() {
+    this.goodsHttp()
+  }
   render() {
     const goodsList = [
       {
         title: '优惠活动',
-        key: 'item1'
+        key: '1'
       },
       {
         title: '今日推荐',
-        key: 'item2'
+        key: '2'
       },
       {
         title: '热点商品',
-        key: 'item3'
+        key: '3'
       },
     ];
     return (
@@ -100,6 +112,26 @@ class Home extends React.Component {
     );
   }
 
+  goodsHttp= () => {
+    return fetch('https://easy-mock.com/mock/5afd2420659068782e1217ef/api/test1/goods', {
+      method: 'GET',
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        if (responseJson.code) {
+          this.setState({
+            goodsList: responseJson.data.list,
+            goodsList1: responseJson.data.list1,
+            goodsList2: responseJson.data.list2,
+            goodsList3: responseJson.data.list3,
+          })
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
   listHeaderComponent = () => {
     return (
       <SwiperAds/>
@@ -107,28 +139,17 @@ class Home extends React.Component {
   };
 
   _renderItem = ({item}) => {
-    const childGoodsList = [
-      {
-        title: '商品1',
-        key: 'item1'
-      },
-      {
-        title: '商品2',
-        key: 'item2'
-      },
-      {
-        title: '商品3',
-        key: 'item3'
-      },
-      {
-        title: '商品4',
-        key: 'item4'
-      },
-      {
-        title: '商品5',
-        key: 'item5'
-      }
-    ];
+    let childGoodsList = [];
+    if (item.key == 1) {
+      childGoodsList = this.state.goodsList1;
+    } else if (item.key == 2) {
+      childGoodsList = this.state.goodsList2;
+
+    } else {
+      childGoodsList = this.state.goodsList3;
+
+    }
+
 
     return (
       <View>
@@ -152,7 +173,7 @@ class Home extends React.Component {
 
   renderGoods = ({item}) => {
     return (
-      <Goods navigation={ this.props.navigation } goods={item.title} goodsStyle={ 'normal' }/>
+      <Goods navigation={ this.props.navigation } goods={item} goodsStyle={ 'normal' }/>
     );
   };
 
@@ -161,11 +182,38 @@ class Home extends React.Component {
   };
 
   listFooterComponent = () => {
+    const numColumns = 2;
     return (
-      <Recommend navigation={ this.props.navigation }/>
+      <View>
+		  <Text style={CSS.totalGoodsTitle}>
+		    - - - 全部商品 - - -
+		  </Text>
+		  <View style={ CSS.recommendContainer }>
+		  	<FlatList
+      data={this.state.goodsList}
+      renderItem={this.renderTotal}
+      horizontal={false}
+      numColumns={numColumns}
+      ></FlatList>
+		  </View>
+		</View>
+    );
+  }
+  renderTotal= ({item}) => {
+    return (
+      <Goods navigation={ this.props.navigation } goods={item} goodsStyle={ 'recommend' }/>
     );
   }
 }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -197,82 +245,16 @@ class SwiperAds extends React.Component {
   }
 }
 
-// recommend
-class Recommend extends React.Component {
-  render() {
-    const List = [
-      {
-        title: '优惠活动',
-        key: 'item1'
-      },
-      {
-        title: '今日推荐',
-        key: 'item2'
-      },
-      {
-        title: '热点商品',
-        key: 'item3'
-      },
-      {
-        title: '优惠活动',
-        key: 'item11'
-      },
-      {
-        title: '今日推荐',
-        key: 'item12'
-      },
-      {
-        title: '热点商品',
-        key: 'item13'
-      },
-      {
-        title: '优惠活动',
-        key: 'item21'
-      },
-      {
-        title: '今日推荐',
-        key: 'item22'
-      },
-      {
-        title: '热点商品',
-        key: 'item23'
-      },
-      {
-        title: '优惠活动',
-        key: 'item41'
-      },
-      {
-        title: '今日推荐',
-        key: 'item42'
-      },
-      {
-        title: '热点商品',
-        key: 'item43'
-      },
-    ];
-    const numColumns = 2;
-    return (
-      <View>
-		  <Text style={CSS.totalGoodsTitle}>
-		    - - - 全部商品 - - -
-		  </Text>
-		  <View style={ CSS.recommendContainer }>
-		  	<FlatList
-      data={List}
-      renderItem={this.renderTotal}
-      horizontal={false}
-      numColumns={numColumns}
-      ></FlatList>
-		  </View>
-		</View>
-    );
-  }
-  renderTotal= () => {
-    return (
-      <Goods navigation={ this.props.navigation } goodsStyle={ 'recommend' }/>
-    );
-  }
-}
+
+
+
+
+
+
+
+
+
+
 
 
 module.exports = Home;

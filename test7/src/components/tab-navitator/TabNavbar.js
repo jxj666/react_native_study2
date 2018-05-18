@@ -56,9 +56,7 @@ class TabNavbar extends BaseComponent {
         unSelected: require('./Smile.png'),
         selected: require('./SmileUp.png'),
 
-        view: <Personal
-        navigation={ this.props.navigation }
-        />,
+        view: <Personal  navigation={ this.props.navigation } />,
         title: 'personal',
         titleName: '个人'
       }
@@ -69,7 +67,7 @@ class TabNavbar extends BaseComponent {
 			{ this._renderIcon(tabs[0])}
 			{ this._renderIcon(tabs[1])}
 			{ this._renderIcon(tabs[2])}
-		  </TabNavigator>
+	 </TabNavigator>
     );
   }
 

@@ -1,215 +1,229 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions, AsyncStorage } from 'react-native';
 
 const Variable = require('../../common/css/variable');
 const deviceWidth = Dimensions.get('window').width;
 
 const normalCss = StyleSheet.create({
   container: {
-	position: 'relative',
-	width: deviceWidth / 3,
-	paddingBottom: 10,
-	backgroundColor: '#fff'
+    position: 'relative',
+    width: deviceWidth / 3,
+    paddingBottom: 10,
+    backgroundColor: '#fff'
   },
   imgWrapper: {
-	alignItems: 'center'
+    alignItems: 'center'
   },
   img: {
-	width: 80,
-	height: 80
+    width: 80,
+    height: 80,
+    borderWidth: 1,
+    borderColor: '#eee',
+    marginTop: 5,
+    marginBottom: 5,
   },
   goodsInfo: {
-	paddingLeft: 10,
-	paddingRight: 10
+    paddingLeft: 10,
+    paddingRight: 10
   },
   brandName: {
-	flex: 1,
-	flexDirection: 'row',
-	width: 100
+    flex: 1,
+    flexDirection: 'row',
+    width: 100
   },
   brand: {
-	fontWeight: 'bold',
-	fontSize: 10
+    fontWeight: 'bold',
+    fontSize: 10
   },
   name: {
-	fontSize: 10,
+    fontSize: 10,
   },
   unit: {
-	fontSize: 10,
-	color: Variable.colorUnit
+    fontSize: 10,
+    color: Variable.colorUnit
   },
   price: {
-	fontSize: 12,
-	color: Variable.colorPrice
+    fontSize: 12,
+    color: Variable.colorPrice
   },
   plus: {
-	position: 'absolute',
-	right: 5,
-	bottom: 10,
-	width: 20,
-	height: 20
+    position: 'absolute',
+    right: 5,
+    bottom: 10,
+    width: 20,
+    height: 20
   }
 });
 
 const recommendCss = StyleSheet.create({
   container: {
-	position: 'relative',
-	marginTop: 2.5,
-	marginRight: 2.5,
-	marginBottom: 2.5,
-	marginLeft: 2.5,
-	width: deviceWidth / 2 - 7.5,
-	paddingBottom: 10,
-	backgroundColor: '#fff',
-	overflow: 'hidden',
+    position: 'relative',
+    marginTop: 2.5,
+    marginRight: 2.5,
+    marginBottom: 2.5,
+    marginLeft: 2.5,
+    width: deviceWidth / 2 - 7.5,
+    paddingBottom: 10,
+    backgroundColor: '#fff',
+    overflow: 'hidden',
   },
   imgWrapper: {
-	alignItems: 'center'
+    alignItems: 'center'
   },
   img: {
-	width: "100%",
-	height: 100,
+    width: "100%",
+    height: 100,
 
-	borderWidth: 1,
-	borderColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#eee',
+    marginTop: 5,
+    marginBottom: 5,
   },
   goodsInfo: {
-	paddingLeft: 10,
-	paddingRight: 10
+    paddingLeft: 10,
+    paddingRight: 10
   },
   brandName: {
-	flex: 1,
-	flexDirection: 'row',
-	width: 110
+    flex: 1,
+    flexDirection: 'row',
+    width: 110
   },
   brand: {
-	fontWeight: 'bold',
-	fontSize: 13
+    fontWeight: 'bold',
+    fontSize: 13
   },
   name: {
-	fontSize: 12
+    fontSize: 12
   },
   unit: {
-	fontSize: 10,
-	color: Variable.colorUnit
+    fontSize: 10,
+    color: Variable.colorUnit
   },
   price: {
-	fontSize: 12,
-	color: Variable.colorPrice
+    fontSize: 12,
+    color: Variable.colorPrice
   },
   plus: {
-	position: 'absolute',
-	right: 5,
-	bottom: 5,
-	width: 25,
-	height: 25
+    position: 'absolute',
+    right: 5,
+    bottom: 5,
+    width: 25,
+    height: 25
   }
 });
 
 const categoryGridCss = StyleSheet.create({
   container: {
-	position: 'relative',
-	width: 140,
-	paddingBottom: 10,
-	backgroundColor: '#fff',
-	marginLeft: 2.5,
-	marginRight: 2.5,
-	marginBottom: 5
+    position: 'relative',
+    width: 140,
+    paddingBottom: 10,
+    backgroundColor: '#fff',
+    marginLeft: 2.5,
+    marginRight: 2.5,
+    marginBottom: 5
   },
   imgWrapper: {
-	alignItems: 'center'
+    alignItems: 'center'
   },
   img: {
-	width: 80,
-	height: 80
+    width: 80,
+    height: 80,
+    borderWidth: 1,
+    borderColor: '#eee',
+    marginTop: 5,
+    marginBottom: 5,
   },
   goodsInfo: {
-	paddingLeft: 10,
-	paddingRight: 10
+    paddingLeft: 10,
+    paddingRight: 10
   },
   brandName: {
-	flex: 1,
-	flexDirection: 'row',
-	width: 100
+    flex: 1,
+    flexDirection: 'row',
+    width: 100
   },
   brand: {
-	fontWeight: 'bold',
-	fontSize: 13
+    fontWeight: 'bold',
+    fontSize: 13
   },
   name: {
-	fontSize: 12,
+    fontSize: 12,
   },
   unit: {
-	fontSize: 10,
-	color: Variable.colorUnit
+    fontSize: 10,
+    color: Variable.colorUnit
   },
-  price: {
-	fontSize: 12,
-	color: Variable.colorPrice
+  id: {
+    fontSize: 12,
+    color: Variable.colorPrice
   },
   plus: {
-	position: 'absolute',
-	right: 5,
-	bottom: 10,
-	width: 20,
-	height: 20
+    position: 'absolute',
+    right: 5,
+    bottom: 10,
+    width: 20,
+    height: 20
   }
 });
 
 const categoryListCss = StyleSheet.create({
   container: {
-	position: 'relative',
-	flex: 1,
-	flexDirection: 'row',
-	paddingBottom: 2.5,
-	backgroundColor: '#fff',
-	marginLeft: 2.5,
-	marginRight: 2.5,
-	marginBottom: 5
+    position: 'relative',
+    flex: 1,
+    flexDirection: 'row',
+    paddingBottom: 2.5,
+    backgroundColor: '#fff',
+    marginLeft: 2.5,
+    marginRight: 2.5,
+    marginBottom: 5
   },
   imgWrapper: {
-	alignItems: 'center'
+    alignItems: 'center'
   },
   img: {
-	width: 80,
-	height: 80
+    width: 80,
+    height: 80,
+    borderWidth: 1,
+    borderColor: '#eee',
+    marginTop: 5,
+    marginBottom: 5,
   },
   goodsInfo: {
-	flex: 3,
-	paddingLeft: 10,
-	paddingRight: 10
+    flex: 3,
+    paddingLeft: 10,
+    paddingRight: 10
   },
   brandName: {
-	flex: 1,
-	flexDirection: 'row',
-	textAlignVertical: 'center',
-	width: 180
+    flex: 1,
+    flexDirection: 'row',
+    textAlignVertical: 'center',
+    width: 180
   },
   brand: {
-	fontWeight: 'bold',
-	fontSize: 13
+    fontWeight: 'bold',
+    fontSize: 13
   },
   name: {
-	fontSize: 12,
+    fontSize: 12,
   },
   unit: {
-	flex: 1,
-	textAlignVertical: 'center',
-	fontSize: 10,
-	color: Variable.colorUnit
+    flex: 1,
+    textAlignVertical: 'center',
+    fontSize: 10,
+    color: Variable.colorUnit
   },
   price: {
-	flex: 1,
-	textAlignVertical: 'center',
-	fontSize: 12,
-	color: Variable.colorPrice
+    flex: 1,
+    textAlignVertical: 'center',
+    fontSize: 12,
+    color: Variable.colorPrice
   },
   plus: {
-	position: 'absolute',
-	right: 5,
-	bottom: 10,
-	width: 20,
-	height: 20
+    position: 'absolute',
+    right: 5,
+    bottom: 10,
+    width: 20,
+    height: 20
   }
 });
 
@@ -221,68 +235,74 @@ class Goods extends React.Component {
   goodsInfo;
 
   constructor(props) {
-	super(props);
-	this._currentStyle = props.goodsStyle || 'normal';
-	this.goodsInfo=props.goods || '默认商品';
-	switch (this._currentStyle) {
-	  case 'normal' :
-		currentStyle = normalCss;
-		break;
-	  case 'recommend' :
-		currentStyle = recommendCss;
-		break;
-	  case 'categoryGrid' :
-		currentStyle = categoryGridCss;
-		break;
-	  case 'categoryList' :
-		currentStyle = categoryListCss;
-		break;
-	}
+    super(props);
+    this._currentStyle = props.goodsStyle || 'normal';
+    this.goodsInfo = props.goods ;
+    switch (this._currentStyle) {
+      case 'normal':
+        currentStyle = normalCss;
+        break;
+      case 'recommend':
+        currentStyle = recommendCss;
+        break;
+      case 'categoryGrid':
+        currentStyle = categoryGridCss;
+        break;
+      case 'categoryList':
+        currentStyle = categoryListCss;
+        break;
+    }
   }
 
   componentWillUpdate() {
-	switch (this._currentStyle) {
-	  case 'normal' :
-		currentStyle = normalCss;
-		break;
-	  case 'recommend' :
-		currentStyle = recommendCss;
-		break;
-	  case 'categoryGrid' :
-		currentStyle = categoryGridCss;
-		break;
-	  case 'categoryList' :
-		currentStyle = categoryListCss;
-		break;
-	}
+    switch (this._currentStyle) {
+      case 'normal':
+        currentStyle = normalCss;
+        break;
+      case 'recommend':
+        currentStyle = recommendCss;
+        break;
+      case 'categoryGrid':
+        currentStyle = categoryGridCss;
+        break;
+      case 'categoryList':
+        currentStyle = categoryListCss;
+        break;
+    }
   }
 
   render() {
-	return (
-		<View style={ currentStyle.container }>
-		  <TouchableOpacity onPress={ () => this.props.navigation.navigate('GoodsDetail') }
-							style={ currentStyle.imgWrapper }>
-			<Image style={ currentStyle.img } source={ require('./goods.jpg') } resizeMode={'contain'}/>
+    return (
+      <View style={ currentStyle.container }>
+		  <TouchableOpacity onPress={ () => {
+        AsyncStorage.setItem('infoUnit', this.goodsInfo.unit);
+        AsyncStorage.setItem('infoName', this.goodsInfo.name);
+        AsyncStorage.setItem('infoUrl', this.goodsInfo.url);
+        this.props.navigation.navigate('GoodsDetail');
+      }}
+      style={ currentStyle.imgWrapper }>
+			<Image style={ currentStyle.img } source={ {
+        uri: this.goodsInfo.url,
+        cache: 'force-cache'
+      }} resizeMode={'stretch'}/>
 		  </TouchableOpacity>
 		  <View style={ currentStyle.goodsInfo }>
 			<Text style={ currentStyle.brandName } numberOfLines={ 1 }>
 			  <Text style={ currentStyle.brand }>
-				商品类: 
+				名称 :  
 			  </Text>
 			  <Text style={ currentStyle.name }>
-				{this.goodsInfo}
+				{this.goodsInfo.name}
 			  </Text>
 			</Text>
 			<Text style={ currentStyle.unit }>
-			  1/个
-			</Text>
-			<Text style={ currentStyle.price }>
-			  ￥30.00
+			  {this.goodsInfo.unit}
 			</Text>
 		  </View>
 		</View>
-	);
+    );
   }
+
 }
 
 module.exports = Goods;

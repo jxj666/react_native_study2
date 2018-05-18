@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, Dimensions, StyleSheet, DeviceEventEmitter, TouchableOpacity, TouchableWithoutFeedback, TextInput, Button } from 'react-native';
+import { View, Text, Image, Dimensions, StyleSheet, DeviceEventEmitter, TouchableOpacity, TouchableWithoutFeedback, TextInput, Button, AsyncStorage } from 'react-native';
 import { getUserInfo } from '../../common/js/cache';
 import Header from '../header/header';
 
@@ -96,6 +96,12 @@ const CSS = StyleSheet.create({
     lineHeight: 25,
     color: '#13227a',
   },
+  userInfoText2: {
+    fontSize: 10,
+    height: 20,
+    lineHeight: 20,
+    color: '#13227a',
+  },
   button: {
     width: deviceWidth / 2,
     height: 40,
@@ -150,89 +156,163 @@ class Personal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userInfo: false
+      userInfo: '',
+      user: '',
+      password: '',
+      loginTime: '',
     }
+
+  }
+  componentWillMount() {
+    AsyncStorage.getItem('user', (error, result) => {
+      if (!error) {
+        // alert(result);
+        this.setState({
+          userInfo: result
+        });
+      }
+    });
+    AsyncStorage.getItem('time', (error, result) => {
+      if (!error) {
+        // alert(result);
+        this.setState({
+          loginTime: result
+        });
+      }
+    });
+
+
   }
   render() {
-    return (
-      <View style={ {
-        flex: 1
-      }}>
-		<Header />
-		  <View>
-			{ this.renderLoginEle()}
-		  </View>
-		  <View style={ CSS.phoneContainer }>
-			<Text style={ CSS.phone }>
-			  客服电话 : 
-			  <Text style={ CSS.phone }>1709263003</Text>
-			</Text>
-		  </View>
-		</View>
-    );
-  }
-  renderLoginEle = () => {
     const placeholderInfo = {
       user: '请输入用户名!',
       password: '请输入密码!',
     }
-    if (this.state.userInfo) {
-      return (
+    // alert(JSON.stringify(this.state.userInfo));
+    return (
+      <View style={ {
+        flex: 1
+      }}>
+    <Header/>
+    <View>
+    {!!this.state.userInfo ?
         <View style={ CSS.avatarWrapper }>
-			<Image source={ {
+            <Image source={ {
           uri: `https://jxj322991.github.io/2018imgs/img/png/01.png`,
           cache: 'force-cache'
         }} style={ CSS.avatar }/>
-			<Text style={CSS.userText}>异阳</Text>
-			<Text style={CSS.userInfoText}>男</Text>
-			<Text style={CSS.userInfoText}>超级会员</Text>
-			<TouchableOpacity style={CSS.button} onPress={this.onPress}>
-			<View style={CSS.buttonView}>
-			<Text style={CSS.buttonText}>
-			  退出登录
-			</Text>
-			  
-			</View>
-			</TouchableOpacity>
-		  </View>
-      );
-    } else {
-      return (
+            <Text style={CSS.userText}>{this.state.userInfo}</Text>
+            <Text style={CSS.userInfoText}>男</Text>
+            <Text style={CSS.userInfoText}>超级会员</Text>
+            <Text style={CSS.userInfoText2}>登录时间:{this.state.loginTime}</Text>
+            <TouchableOpacity style={CSS.button} onPress={this.onPress}>
+                <View style={CSS.buttonView}>
+                    <Text style={CSS.buttonText}>
+                        退出登录
+                    </Text>
+                </View>
+            </TouchableOpacity>
+        </View>
+        :
         <View style={ CSS.avatarWrapper }>
-		<View style={CSS.loginTitle}>
-		<Text style={CSS.loginTitleText}>
-		  欢迎光临!
-		</Text>
-		</View>
-      	<TextInput
-        placeholder={placeholderInfo.user}
-        style={CSS.buttonInput}
-        editable = {true}
-        maxLength = {20}
-        />
-      	<TextInput
-        secureTextEntry={true}
-        placeholder={placeholderInfo.password}
-        style={CSS.buttonInput}
-        editable = {true}
-        maxLength = {20}
-        />
-		<TouchableOpacity style={CSS.button} onPress={this.onPress}>
-		<View style={CSS.buttonView}>
-		  <Text style={CSS.buttonText}>
-		    登录
-		  </Text>
-		</View>
-		</TouchableOpacity>
-	</View>
-
-      );
-    }
+            <View style={CSS.loginTitle}>
+                <Text style={CSS.loginTitleText}>
+                    欢迎光临!
+                </Text>
+            </View>
+            <TextInput placeholder={placeholderInfo.user} style={CSS.buttonInput} editable={ true} maxLength={ 20} onChangeText={(user) => this.setState({
+          user
+        })}/>
+            <TextInput secureTextEntry={true} placeholder={placeholderInfo.password} style={CSS.buttonInput} editable={ true} maxLength={ 20} onChangeText={(password) => this.setState({
+          password
+        })}/>
+            <TouchableOpacity style={CSS.button} onPress={this.onPress}>
+                <View style={CSS.buttonView}>
+                    <Text style={CSS.buttonText}>
+                        登录
+                    </Text>
+                </View>
+            </TouchableOpacity>
+        </View>
+      }
+    </View>
+    <View style={ CSS.phoneContainer }>
+        <Text style={ CSS.phone }>
+            客服电话 :
+            <Text style={ CSS.phone }> 188 6666 6666 </Text>
+        </Text>
+    </View>
+</View>
+    );
   }
   onPress = () => {
-    this.setState({
-      userInfo: !this.state.userInfo
-    });
+    // AsyncStorage.getItem('user', (error, result) => {
+    //   if (!error) {
+    //     alert(result);
+    //     this.state.userInfo=result;
+    //   }
+    // });
+
+
+    if (!this.state.userInfo) {
+      if (!this.state.user || !this.state.password) {
+        alert('请填写正确信息!');
+        return;
+      }
+      this.loginHttp();
+    } else {
+      // this.setState({
+      //   userInfo: ''
+      // });
+      AsyncStorage.setItem('user', '');
+      AsyncStorage.getItem('user', (error, result) => {
+        if (!error) {
+          // alert(result);
+          this.setState({
+            userInfo: result
+          });
+        }
+      });
+    }
+  }
+  loginHttp= () => {
+    return fetch('https://easy-mock.com/mock/5afd2420659068782e1217ef/api/test1/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: `user=${this.state.user}&password=${this.state.password}`
+    })
+      .then((response) => response.json())
+      .then((responseJson) => {
+        if (responseJson.code) {
+          // alert(responseJson + JSON.stringify(responseJson))
+          // this.setState({
+          //   userInfo: responseJson.data.user
+          // });
+          AsyncStorage.setItem('user', String(responseJson.data.user));
+          AsyncStorage.setItem('time', String(responseJson.data.time));
+          AsyncStorage.getItem('user', (error, result) => {
+            if (!error) {
+              // alert(result);
+              this.setState({
+                userInfo: result
+              });
+            }
+          });
+          AsyncStorage.getItem('time', (error, result) => {
+            if (!error) {
+              // alert(result);
+              this.setState({
+                loginTime: result
+              });
+            }
+          });
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 }
 
