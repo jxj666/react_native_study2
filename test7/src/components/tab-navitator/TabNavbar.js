@@ -5,6 +5,8 @@ import TabNavigator from 'react-native-tab-navigator';
 const Home = require('../home/Home');
 const Order = require('../order/Order');
 const Personal = require('../personal/Personal');
+import { ifIphoneX } from 'react-native-iphone-x-helper';
+
 
 const BaseComponent = require('../../base/base-component/BaseComponent');
 
@@ -20,6 +22,9 @@ const CSS = StyleSheet.create({
   icon: {
     width: 25,
     height: 25
+  },
+  tab: {
+    backgroundColor: "#000",
   }
 });
 
@@ -63,11 +68,11 @@ class TabNavbar extends BaseComponent {
     ];
 
     return (
-      <TabNavigator>
-			{ this._renderIcon(tabs[0])}
-			{ this._renderIcon(tabs[1])}
-			{ this._renderIcon(tabs[2])}
-	 </TabNavigator>
+      <TabNavigator >
+      { this._renderIcon(tabs[0])}
+      { this._renderIcon(tabs[1])}
+      { this._renderIcon(tabs[2])}
+   </TabNavigator>
     );
   }
 
@@ -83,8 +88,8 @@ class TabNavbar extends BaseComponent {
       onPress={ () => this.setState({
         selectedTab: tab.title
       })}>
-		  { tab.view }
-		</TabNavigator.Item>
+      { tab.view }
+    </TabNavigator.Item>
     );
   }
 }
