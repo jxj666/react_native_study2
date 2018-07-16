@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Dimensions, FlatList, AsyncStorage, } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Dimensions, FlatList, AsyncStorage} from 'react-native';
 import { TabNavigator, TabBarTop } from 'react-navigation';
 import Header from '../header/header';
 

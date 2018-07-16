@@ -253,6 +253,10 @@ class Personal extends React.Component {
       }
       this.loginHttp();
     } else {
+      this.setState({
+        user: undefined,
+        password: undefined
+      });
       this.state.user = undefined;
       this.state.password = undefined;
       AsyncStorage.setItem('user', '');

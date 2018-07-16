@@ -15,8 +15,8 @@ const normalCss = StyleSheet.create({
     alignItems: 'center'
   },
   img: {
-    width: 80,
-    height: 80,
+    width: deviceWidth / 4,
+    height: deviceWidth / 4,
     borderWidth: 1,
     borderColor: '#eee',
     marginTop: 5,
@@ -24,7 +24,8 @@ const normalCss = StyleSheet.create({
   },
   goodsInfo: {
     paddingLeft: 10,
-    paddingRight: 10
+    paddingRight: 10,
+    textAlign:'center',
   },
   brandName: {
     flex: 1,
@@ -63,6 +64,7 @@ const recommendCss = StyleSheet.create({
     marginBottom: 2.5,
     marginLeft: 2.5,
     width: deviceWidth / 2 - 7.5,
+    
     paddingBottom: 10,
     backgroundColor: '#fff',
     overflow: 'hidden',
@@ -72,8 +74,7 @@ const recommendCss = StyleSheet.create({
   },
   img: {
     width: "100%",
-    height: 100,
-
+    height: deviceWidth / 3 ,
     borderWidth: 1,
     borderColor: '#eee',
     marginTop: 5,

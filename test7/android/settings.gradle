@@ -1,0 +1,3 @@
+rootProject.name = 'haohuan_demo'
+
+include ':app'

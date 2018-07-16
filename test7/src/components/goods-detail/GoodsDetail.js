@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, Dimensions, FlatList, AsyncStorage, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, Dimensions, FlatList, AsyncStorage, TouchableOpacity, WebView } from 'react-native';
 
 const deviceWidth = Dimensions.get('window').width;
 const Swiper = require('react-native-swiper');
@@ -94,7 +94,12 @@ const CSS = StyleSheet.create({
     lineHeight: 25,
     fontSize: 15,
     color: '#fff',
-  }
+  },
+  webPort: {
+    height: 500,
+    backgroundColor: "#fff",
+    marginTop: 20,
+  },
 });
 
 
@@ -155,13 +160,17 @@ class GoodsDetail extends React.Component {
     return (
       <View>
         <Text style={CSS.infoText}>
-          首先告诉大家什么是React Native?为什么要用React Native？ 传统开发的痛点，React Native的优点，然后教大家Mac和Windows下搭建React Native开发环境以及选择什么样的开发工具，最后教大家构建官方example，学会如何运行官方提供的示例项目。
-        </Text>
+          React Native (简称RN)是Facebook于2015年4月开源的跨平台移动应用开发框架，是Facebook早先开源的JS框架 React 在原生移动应用平台的衍生产物，目前支持iOS和安卓两大平台。RN使用Javascript语言，类似于HTML的JSX，以及CSS来开发移动应用，因此熟悉Web前端开发的技术人员只需很少的学习就可以进入移动应用开发领域。        </Text>
         <Text style={CSS.infoText}>
-          大家可以学习到什么是React Native的组件、如何创建一个组件， 组件的生命周期以及对应的方法、作用、调用时机，什么是props、如何用props进行数据传递、检查，什么是status，什么是ref，什么是类，E6与ES5在React Native中有哪些不同，UI界面布局，按钮详解与技巧，图片加载技巧与使用详解，调试技巧等
-        </Text>
+          React Native使你能够在Javascript和React的基础上获得完全一致的开发体验，构建世界一流的原生APP。        </Text>
         <Text style={CSS.infoText}>
-          会教大家一些按钮使用技巧，图片加载技巧和ReactNative调试技巧，让大家在学会基础部分之而后，可以更进一步的掌握一些高级的技巧。</Text>
+          React Native着力于提高多平台开发的开发效率 —— 仅需学习一次，编写任何平台。(Learn once, write anywhere)          </Text>
+        <WebView
+          style={CSS.webPort}
+          source={{ uri: 'https://m.imooc.com/search/?words=react+native', }}
+          mixedContentMode={'always'}
+          saveFormDataDisabled={true}
+        />
       </View>
 
     );
