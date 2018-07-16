@@ -28,7 +28,7 @@ const App = StackNavigator(
     // initialRouteName: 'TabNavbar',
     initialRouteName: 'TabNavbar',
     headerMode: 'screen',
-    navigationOptions: ({navigation}) => ({
+    navigationOptions: ({ navigation }) => ({
       gesturesEnabled: false,
       headerTintColor: 'black',
       headerStyle: {
@@ -39,21 +39,21 @@ const App = StackNavigator(
         fontWeight: 'normal'
       },
       headerLeft: (
-      <TouchableOpacity
-      style={ {
-        padding: 10
-      }}
-      onPress={ () => {
-        navigation.goBack()
-      }}
-      >
-			  <Image source={ require('./src/common/image/back_icon.png')}
-      resizeMode={ 'contain' }
-      style={ {
-        width: 25,
-        height: 25,
-      }}/>
-			</TouchableOpacity>)
+        <TouchableOpacity
+          style={{
+            padding: 10
+          }}
+          onPress={() => {
+            navigation.goBack()
+          }}
+        >
+          <Image source={require('./src/common/image/back_icon.png')}
+            resizeMode={'contain'}
+            style={{
+              width: 25,
+              height: 25,
+            }} />
+        </TouchableOpacity>)
     }),
     transitionConfig: () => ({
       screenInterpolator: CardStackStyleInterpolator.forHorizontal,

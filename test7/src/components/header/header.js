@@ -68,7 +68,7 @@ export default class Header extends React.Component {
         <View style={CSS.headerTextContainer}>
           <Text style={CSS.headerText}>
             商品分期(技术验证demo)
-			</Text>
+		    	</Text>
           <Image style={CSS.headerImg} source={require('./logo.png')} />
         </View>
       </View>

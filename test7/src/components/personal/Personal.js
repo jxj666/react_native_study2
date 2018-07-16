@@ -190,70 +190,62 @@ class Personal extends React.Component {
     }
     // alert(JSON.stringify(this.state.userInfo));
     return (
-      <View style={ {
+      <View style={{
         flex: 1
       }}>
-    <Header/>
-    <View>
-    {!!this.state.userInfo ?
-        <View style={ CSS.avatarWrapper }>
-            <Image source={ {
-          uri: `https://jxj322991.github.io/2018imgs/img/png/01.png`,
-          cache: 'force-cache'
-        }} style={ CSS.avatar }/>
-            <Text style={CSS.userText}>{this.state.userInfo}</Text>
-            <Text style={CSS.userInfoText}>男</Text>
-            <Text style={CSS.userInfoText}>超级会员</Text>
-            <Text style={CSS.userInfoText2}>登录时间:{this.state.loginTime}</Text>
-            <TouchableOpacity style={CSS.button} onPress={this.onPress}>
+        <Header />
+        <View>
+          {!!this.state.userInfo ?
+            <View style={CSS.avatarWrapper}>
+              <Image source={{
+                uri: `https://jxj322991.github.io/2018imgs/img/png/01.png`,
+                cache: 'force-cache'
+              }} style={CSS.avatar} />
+              <Text style={CSS.userText}>{this.state.userInfo}</Text>
+              <Text style={CSS.userInfoText}>男</Text>
+              <Text style={CSS.userInfoText}>超级会员</Text>
+              <Text style={CSS.userInfoText2}>登录时间:{this.state.loginTime}</Text>
+              <TouchableOpacity style={CSS.button} onPress={this.onPress}>
                 <View style={CSS.buttonView}>
-                    <Text style={CSS.buttonText}>
-                        退出登录
+                  <Text style={CSS.buttonText}>
+                    退出登录
                     </Text>
                 </View>
-            </TouchableOpacity>
-        </View>
-        :
-        <View style={ CSS.avatarWrapper }>
-            <View style={CSS.loginTitle}>
-                <Text style={CSS.loginTitleText}>
-                    欢迎光临!
-                </Text>
+              </TouchableOpacity>
             </View>
-            <TextInput placeholder={placeholderInfo.user} style={CSS.buttonInput} editable={ true} maxLength={ 20} onChangeText={(user) => this.setState({
-          user
-        })}/>
-            <TextInput secureTextEntry={true} placeholder={placeholderInfo.password} style={CSS.buttonInput} editable={ true} maxLength={ 20} onChangeText={(password) => this.setState({
-          password
-        })}/>
-            <TouchableOpacity style={CSS.button} onPress={this.onPress}>
+            :
+            <View style={CSS.avatarWrapper}>
+              <View style={CSS.loginTitle}>
+                <Text style={CSS.loginTitleText}>
+                  欢迎光临!
+                </Text>
+              </View>
+              <TextInput placeholder={placeholderInfo.user} style={CSS.buttonInput} editable={true} maxLength={20} onChangeText={(user) => this.setState({
+                user
+              })} />
+              <TextInput secureTextEntry={true} placeholder={placeholderInfo.password} style={CSS.buttonInput} editable={true} maxLength={20} onChangeText={(password) => this.setState({
+                password
+              })} />
+              <TouchableOpacity style={CSS.button} onPress={this.onPress}>
                 <View style={CSS.buttonView}>
-                    <Text style={CSS.buttonText}>
-                        登录
+                  <Text style={CSS.buttonText}>
+                    登录
                     </Text>
                 </View>
-            </TouchableOpacity>
+              </TouchableOpacity>
+            </View>
+          }
         </View>
-      }
-    </View>
-    <View style={ CSS.phoneContainer }>
-        <Text style={ CSS.phone }>
+        <View style={CSS.phoneContainer}>
+          <Text style={CSS.phone}>
             客服电话 :
-            <Text style={ CSS.phone }> 188 6666 6666 </Text>
-        </Text>
-    </View>
-</View>
+            <Text style={CSS.phone}> 188 6666 6666 </Text>
+          </Text>
+        </View>
+      </View>
     );
   }
   onPress = () => {
-    // AsyncStorage.getItem('user', (error, result) => {
-    //   if (!error) {
-    //     alert(result);
-    //     this.state.userInfo=result;
-    //   }
-    // });
-
-
     if (!this.state.userInfo) {
       if (!this.state.user || !this.state.password) {
         alert('请填写正确信息!');
@@ -261,21 +253,20 @@ class Personal extends React.Component {
       }
       this.loginHttp();
     } else {
-      // this.setState({
-      //   userInfo: ''
-      // });
+      this.state.user = undefined;
+      this.state.password = undefined;
       AsyncStorage.setItem('user', '');
       AsyncStorage.getItem('user', (error, result) => {
         if (!error) {
-          // alert(result);
           this.setState({
             userInfo: result
           });
         }
       });
+
     }
   }
-  loginHttp= () => {
+  loginHttp = () => {
     return fetch('https://easy-mock.com/mock/5afd2420659068782e1217ef/api/test1/login', {
       method: 'POST',
       headers: {
@@ -286,15 +277,10 @@ class Personal extends React.Component {
       .then((response) => response.json())
       .then((responseJson) => {
         if (responseJson.code) {
-          // alert(responseJson + JSON.stringify(responseJson))
-          // this.setState({
-          //   userInfo: responseJson.data.user
-          // });
           AsyncStorage.setItem('user', String(responseJson.data.user));
           AsyncStorage.setItem('time', String(responseJson.data.time));
           AsyncStorage.getItem('user', (error, result) => {
             if (!error) {
-              // alert(result);
               this.setState({
                 userInfo: result
               });
@@ -302,7 +288,6 @@ class Personal extends React.Component {
           });
           AsyncStorage.getItem('time', (error, result) => {
             if (!error) {
-              // alert(result);
               this.setState({
                 loginTime: result
               });
