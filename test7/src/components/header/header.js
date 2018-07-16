@@ -8,20 +8,20 @@ const Variable = require('../../common/css/variable');
 const CSS = StyleSheet.create({
   headerX: {
     ...ifIphoneX({
-          flexDirection: 'row',
-          paddingTop: 44,
-          paddingBottom: 4,
-          paddingLeft: 10,
-          paddingRight: 10,
-          backgroundColor: Variable.colorTheme
+      flexDirection: 'row',
+      paddingTop: 44,
+      paddingBottom: 4,
+      paddingLeft: 10,
+      paddingRight: 10,
+      backgroundColor: Variable.colorTheme
     }, {
-          flexDirection: 'row',
-          paddingTop: 24,
-          paddingBottom: 4,
-          paddingLeft: 10,
-          paddingRight: 10,
-          backgroundColor: Variable.colorTheme
-    })
+        flexDirection: 'row',
+        paddingTop: 24,
+        paddingBottom: 4,
+        paddingLeft: 10,
+        paddingRight: 10,
+        backgroundColor: Variable.colorTheme
+      })
   },
   header: {
     flexDirection: 'row',
@@ -64,14 +64,14 @@ const CSS = StyleSheet.create({
 export default class Header extends React.Component {
   render() {
     return (
-      <View style={ CSS.headerX}>
-		  <View style={ CSS.headerTextContainer }>
-			<Text style={ CSS.headerText }>
-			  商品分期(技术验证demo)
+      <View style={CSS.headerX}>
+        <View style={CSS.headerTextContainer}>
+          <Text style={CSS.headerText}>
+            商品分期(技术验证demo)
 			</Text>
-			<Image style={ CSS.headerImg } source={require('./logo.png')}/>
-		  </View>
-		</View>
+          <Image style={CSS.headerImg} source={require('./logo.png')} />
+        </View>
+      </View>
     );
   }
 }

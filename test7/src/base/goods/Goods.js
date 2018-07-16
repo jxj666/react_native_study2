@@ -237,7 +237,7 @@ class Goods extends React.Component {
   constructor(props) {
     super(props);
     this._currentStyle = props.goodsStyle || 'normal';
-    this.goodsInfo = props.goods ;
+    this.goodsInfo = props.goods;
     switch (this._currentStyle) {
       case 'normal':
         currentStyle = normalCss;
@@ -273,33 +273,33 @@ class Goods extends React.Component {
 
   render() {
     return (
-      <View style={ currentStyle.container }>
-		  <TouchableOpacity onPress={ () => {
-        AsyncStorage.setItem('infoUnit', this.goodsInfo.unit);
-        AsyncStorage.setItem('infoName', this.goodsInfo.name);
-        AsyncStorage.setItem('infoUrl', this.goodsInfo.url);
-        this.props.navigation.navigate('GoodsDetail');
-      }}
-      style={ currentStyle.imgWrapper }>
-			<Image style={ currentStyle.img } source={ {
-        uri: this.goodsInfo.url,
-        cache: 'force-cache'
-      }} resizeMode={'stretch'}/>
-		  </TouchableOpacity>
-		  <View style={ currentStyle.goodsInfo }>
-			<Text style={ currentStyle.brandName } numberOfLines={ 1 }>
-			  <Text style={ currentStyle.brand }>
-				名称 :  
+      <View style={currentStyle.container}>
+        <TouchableOpacity onPress={() => {
+          AsyncStorage.setItem('infoUnit', this.goodsInfo.unit);
+          AsyncStorage.setItem('infoName', this.goodsInfo.name);
+          AsyncStorage.setItem('infoUrl', this.goodsInfo.url);
+          this.props.navigation.navigate('GoodsDetail');
+        }}
+          style={currentStyle.imgWrapper}>
+          <Image style={currentStyle.img} source={{
+            uri: this.goodsInfo.url,
+            cache: 'force-cache'
+          }} resizeMode={'stretch'} />
+        </TouchableOpacity>
+        <View style={currentStyle.goodsInfo}>
+          <Text style={currentStyle.brandName} numberOfLines={1}>
+            <Text style={currentStyle.brand}>
+              名称 :
 			  </Text>
-			  <Text style={ currentStyle.name }>
-				{this.goodsInfo.name}
-			  </Text>
-			</Text>
-			<Text style={ currentStyle.unit }>
-			  {this.goodsInfo.unit}
-			</Text>
-		  </View>
-		</View>
+            <Text style={currentStyle.name}>
+              {this.goodsInfo.name}
+            </Text>
+          </Text>
+          <Text style={currentStyle.unit}>
+            {this.goodsInfo.unit}
+          </Text>
+        </View>
+      </View>
     );
   }
 
