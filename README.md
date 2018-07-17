@@ -7,3 +7,7 @@ react native app
 
 ## 经验
 * rn 的公共标签与 html 相似但不一致,所用样式也存在区别
+* 问题不容易直接调试,需使用其他方式辅助调试
+
+## 问题解决
+* No bundle URL present
