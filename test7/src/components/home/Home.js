@@ -1,15 +1,10 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, FlatList, Dimensions } from 'react-native';
 import Header from '../header/header';
-
 const Goods = require('../../base/goods/Goods');
-
-
 const Variable = require('../../common/css/variable');
 const Swiper = require('react-native-swiper');
 const deviceWidth = Dimensions.get('window').width;
-const deviceHeight = Dimensions.get('window').height;
-
 const CSS = StyleSheet.create({
   homeContainer: {
     flex: 1,
@@ -67,7 +62,6 @@ const CSS = StyleSheet.create({
     lineHeight: 40,
   }
 });
-
 // Home
 class Home extends React.Component {
   constructor(props) {
@@ -98,21 +92,20 @@ class Home extends React.Component {
       },
     ];
     return (
-      <View style={ CSS.homeContainer }>
-		  <Header/>
-		  <FlatList
-      data={ goodsList }
-      renderItem={ this._renderItem }
-      keyExtractor={ this._keyExtractor }
-      ListHeaderComponent={ this.listHeaderComponent }
-      ListFooterComponent={ this.listFooterComponent }
-      showsVerticalScrollIndicator={ false }
-      />
-		</View>
+      <View style={CSS.homeContainer}>
+        <Header />
+        <FlatList
+          data={goodsList}
+          renderItem={this._renderItem}
+          keyExtractor={this._keyExtractor}
+          ListHeaderComponent={this.listHeaderComponent}
+          ListFooterComponent={this.listFooterComponent}
+          showsVerticalScrollIndicator={false}
+        />
+      </View>
     );
   }
-
-  goodsHttp= () => {
+  goodsHttp = () => {
     return fetch('https://easy-mock.com/mock/5afd2420659068782e1217ef/api/test1/goods', {
       method: 'GET',
     })
@@ -131,130 +124,92 @@ class Home extends React.Component {
         console.error(error);
       });
   }
-
   listHeaderComponent = () => {
     return (
-      <SwiperAds/>
+      <SwiperAds />
     );
   };
-
-  _renderItem = ({item}) => {
+  _renderItem = ({ item }) => {
     let childGoodsList = [];
     if (item.key == 1) {
       childGoodsList = this.state.goodsList1;
     } else if (item.key == 2) {
       childGoodsList = this.state.goodsList2;
-
     } else {
       childGoodsList = this.state.goodsList3;
-
     }
-
-
     return (
       <View>
-		  <Text style={CSS.listGoodsTitle}>
-		    - - - {item.title} - - -
+        <Text style={CSS.listGoodsTitle}>
+          - - - {item.title} - - -
 		  </Text>
-		  <FlatList
-      showsHorizontalScrollIndicator={ false }
-      horizontal={ true }
-      data={ childGoodsList }
-      renderItem={ this.renderGoods }
-      keyExtractor={ this._keyGoodsExtractor }
-      />
-		</View>
+        <FlatList
+          showsHorizontalScrollIndicator={false}
+          horizontal={true}
+          data={childGoodsList}
+          renderItem={this.renderGoods}
+          keyExtractor={this._keyGoodsExtractor}
+        />
+      </View>
     );
   };
-
   _keyExtractor = (item) => {
     return item.key;
   };
-
-  renderGoods = ({item}) => {
+  renderGoods = ({ item }) => {
     return (
-      <Goods navigation={ this.props.navigation } goods={item} goodsStyle={ 'normal' }/>
+      <Goods navigation={this.props.navigation} goods={item} goodsStyle={'normal'} />
     );
   };
-
   _keyGoodsExtractor = (item) => {
     return item.key;
   };
-
   listFooterComponent = () => {
     const numColumns = 2;
     return (
       <View>
-		  <Text style={CSS.totalGoodsTitle}>
-		    - - - 全部商品 - - -
+        <Text style={CSS.totalGoodsTitle}>
+          - - - 全部商品 - - -
 		  </Text>
-		  <View style={ CSS.recommendContainer }>
-		  	<FlatList
-      data={this.state.goodsList}
-      renderItem={this.renderTotal}
-      horizontal={false}
-      numColumns={numColumns}
-      ></FlatList>
-		  </View>
-		</View>
+        <View style={CSS.recommendContainer}>
+          <FlatList
+            data={this.state.goodsList}
+            renderItem={this.renderTotal}
+            horizontal={false}
+            numColumns={numColumns}
+          ></FlatList>
+        </View>
+      </View>
     );
   }
-  renderTotal= ({item}) => {
+  renderTotal = ({ item }) => {
     return (
-      <Goods navigation={ this.props.navigation } goods={item} goodsStyle={ 'recommend' }/>
+      <Goods navigation={this.props.navigation} goods={item} goodsStyle={'recommend'} />
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
 // Swiper 轮播图
 class SwiperAds extends React.Component {
   render() {
     return (
-      <View style={ CSS.swiperWrapper }>
-		  <Swiper autoplay dot={ this._dot()} activeDot={ this._activeDot()}>
-			<Image style={ CSS.swiperImg } source={ require('./banner1.png')} resizeMode={Image.resizeMode.stretch}/>
-			<Image style={ CSS.swiperImg } source={ require('./banner2.png')} resizeMode={Image.resizeMode.stretch} />
-			<Image style={ CSS.swiperImg } source={ require('./banner3.png')} resizeMode={Image.resizeMode.stretch} />
-		  </Swiper>
-		</View>
-
+      <View style={CSS.swiperWrapper}>
+        <Swiper autoplay dot={this._dot()} activeDot={this._activeDot()}>
+          <Image style={CSS.swiperImg} source={require('./banner1.png')} resizeMode={Image.resizeMode.stretch} />
+          <Image style={CSS.swiperImg} source={require('./banner2.png')} resizeMode={Image.resizeMode.stretch} />
+          <Image style={CSS.swiperImg} source={require('./banner3.png')} resizeMode={Image.resizeMode.stretch} />
+        </Swiper>
+      </View>
     );
   }
-
   _dot = () => {
     return (
-      <View style={[CSS.dot, CSS.dotCommon]}/>
+      <View style={[CSS.dot, CSS.dotCommon]} />
     );
   };
-
   _activeDot = () => {
     return (
-      <View style={[CSS.activeDot, CSS.dotCommon]}/>
+      <View style={[CSS.activeDot, CSS.dotCommon]} />
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 module.exports = Home;
