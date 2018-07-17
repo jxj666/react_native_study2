@@ -11,3 +11,4 @@ react native app
 
 ## 问题解决
 * No bundle URL present
+=> 删除构建的 ios 包,重新构建

@@ -21,14 +21,14 @@ const CSS = StyleSheet.create({
   dotCommon: {
     width: 5,
     height: 5,
-    borderRadius: 5,
     marginLeft: 3,
     marginRight: 3,
     marginTop: 3,
     marginBottom: 3
   },
   dot: {
-    backgroundColor: 'rgba(0,0,0,.2)',
+    borderRadius: 5,
+    backgroundColor: 'rgba(0,0,0,.3)',
   },
   activeDot: {
     backgroundColor: '#f8ee1c',
@@ -48,15 +48,15 @@ const CSS = StyleSheet.create({
     height: 20
   },
   totalGoodsTitle: {
-    fontSize: 20,
-    color: '#999',
+    fontSize: 15,
+    color: '#000093',
     textAlign: 'center',
-    height: 50,
-    lineHeight: 50,
+    height: 30,
+    lineHeight: 30,
   },
   listGoodsTitle: {
     fontSize: 18,
-    color: '#999',
+    color: '#000093',
     textAlign: 'center',
     height: 40,
     lineHeight: 40,

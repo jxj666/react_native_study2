@@ -25,7 +25,6 @@ const normalCss = StyleSheet.create({
   goodsInfo: {
     paddingLeft: 10,
     paddingRight: 10,
-    textAlign:'center',
   },
   brandName: {
     flex: 1,

@@ -1,10 +1,7 @@
 import React from 'react';
 import { View, Text, Image, Dimensions, StyleSheet, DeviceEventEmitter, TouchableOpacity, TouchableWithoutFeedback, TextInput, Button, AsyncStorage } from 'react-native';
-import { getUserInfo } from '../../common/js/cache';
 import Header from '../header/header';
-
 const deviceWidth = Dimensions.get('window').width;
-
 const CSS = StyleSheet.create({
   avatarWrapper: {
     marginTop: 30,
@@ -125,7 +122,6 @@ const CSS = StyleSheet.create({
     lineHeight: 35,
     fontSize: 20,
     color: '#fff',
-
   },
   buttonInput: {
     width: deviceWidth / 1.5,
@@ -141,7 +137,6 @@ const CSS = StyleSheet.create({
     paddingLeft: 20,
   },
   loginTitle: {
-
   },
   loginTitleText: {
     fontSize: 20,
@@ -150,8 +145,6 @@ const CSS = StyleSheet.create({
     marginBottom: 80,
   }
 });
-
-
 class Personal extends React.Component {
   constructor(props) {
     super(props);
@@ -160,8 +153,8 @@ class Personal extends React.Component {
       user: '',
       password: '',
       loginTime: '',
+      imgUrl: 'https://jxj322991.github.io/2018imgs/img/png/01.png',
     }
-
   }
   componentWillMount() {
     AsyncStorage.getItem('user', (error, result) => {
@@ -180,8 +173,14 @@ class Personal extends React.Component {
         });
       }
     });
-
-
+    AsyncStorage.getItem('imgUrl', (error, result) => {
+      if (!error) {
+        // alert(result);
+        this.setState({
+          imgUrl: result
+        });
+      }
+    });
   }
   render() {
     const placeholderInfo = {
@@ -198,8 +197,7 @@ class Personal extends React.Component {
           {!!this.state.userInfo ?
             <View style={CSS.avatarWrapper}>
               <Image source={{
-                uri: `https://jxj322991.github.io/2018imgs/img/png/01.png`,
-                cache: 'force-cache'
+                uri: this.state.imgUrl
               }} style={CSS.avatar} />
               <Text style={CSS.userText}>{this.state.userInfo}</Text>
               <Text style={CSS.userInfoText}>男</Text>
@@ -257,8 +255,6 @@ class Personal extends React.Component {
         user: undefined,
         password: undefined
       });
-      this.state.user = undefined;
-      this.state.password = undefined;
       AsyncStorage.setItem('user', '');
       AsyncStorage.getItem('user', (error, result) => {
         if (!error) {
@@ -267,7 +263,6 @@ class Personal extends React.Component {
           });
         }
       });
-
     }
   }
   loginHttp = () => {
@@ -283,6 +278,14 @@ class Personal extends React.Component {
         if (responseJson.code) {
           AsyncStorage.setItem('user', String(responseJson.data.user));
           AsyncStorage.setItem('time', String(responseJson.data.time));
+          AsyncStorage.setItem('imgUrl', String(responseJson.data.url));
+          AsyncStorage.getItem('imgUrl', (error, result) => {
+            if (!error) {
+              this.setState({
+                imgUrl: result
+              });
+            }
+          });
           AsyncStorage.getItem('user', (error, result) => {
             if (!error) {
               this.setState({
@@ -304,6 +307,4 @@ class Personal extends React.Component {
       });
   }
 }
-
-
 module.exports = Personal;
